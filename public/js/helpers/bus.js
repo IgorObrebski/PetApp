@@ -20,3 +20,13 @@ function showModal(title, body, actionText, actionCallback) {
 EventBus.on('openModal', function (event, data) {
     showModal(data.title, data.body, data.actionText, data.actionCallback);
 });
+
+EventBus.on("loading:start", function () {
+    $("#loading-overlay").css("display", "flex").hide().fadeIn(200);
+});
+
+EventBus.on("loading:stop", function () {
+    $("#loading-overlay").fadeOut(200, function () {
+        $(this).css("display", "none");
+    });
+});

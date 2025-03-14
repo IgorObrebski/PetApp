@@ -40,10 +40,16 @@
     </div>
 </div>
 
+<div id="loading-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1050; justify-content: center; align-items: center;">
+    <div class="spinner-border text-light" role="status" style="width: 4rem; height: 4rem;"></div>
+</div>
+
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="{{ asset('js/bus.js') }}"></script>
+<script src="{{ asset('js/helpers/bus.js') }}"></script>
+<script src="{{ asset('js/helpers/delete-pet.js') }}" defer></script>
+<script src="{{ asset('js/pets-list.js') }}" defer></script>
 @stack('scripts')
 
 </body>

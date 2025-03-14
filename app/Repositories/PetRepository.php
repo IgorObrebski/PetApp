@@ -41,7 +41,7 @@ class PetRepository implements PetRepositoryInterface
     public function addPet(array $data)
     {
         try {
-            $response = $this->client->post('', ['json' => $data]);
+            $response = $this->client->post("{$this->baseUri}", ['json' => $data]);
             return json_decode($response->getBody(), true);
         } catch (GuzzleException $e) {
             return ['error' => $e->getMessage()];

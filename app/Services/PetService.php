@@ -26,7 +26,11 @@ class PetService
 
     public function addPet(array $data)
     {
-        return $this->petRepository->addPet($data);
+        $response = $this->petRepository->addPet($data);
+        if (isset($response['error'])) {
+            throw new \Exception('Błąd podczas tworzenia pupila: ' . $response['error']);
+        }
+        return $response;
     }
 
     public function updatePet(array $data)

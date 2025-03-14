@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\Status;
+use Exception;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
@@ -53,11 +54,26 @@ class PetController
 
     /**
      * @param $id
-     * @return JsonResponse
+     * @return Application|Factory|object|View
      */
-    public function show($id): JsonResponse
+    public function show($id)
     {
-        return response()->json($this->petService->getPet($id));
+        try {
+            $pet = $this->petService->getPet($id);
+
+            if (isset($pet['error'])) {
+                return response()->view('errors.pet-not-found', ['message' => $pet['error']], 404);
+            }
+
+            $pet = json_decode(json_encode($pet));
+
+            return view('pets.pet', [
+                "pet" => $pet
+            ]);
+
+        } catch (Exception $e) {
+            return response()->view('errors.500', ['message' => 'Coś poszło nie tak! Spróbuj ponownie później.'], 500);
+        }
     }
 
     /**
@@ -66,7 +82,12 @@ class PetController
      */
     public function store(Request $request): JsonResponse
     {
-        return response()->json($this->petService->addPet($request->all()));
+        try {
+            $pet = $this->petService->addPet($request->all());
+            return response()->json($pet, 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Nie udało się dodać zwierzaka. Spróbuj ponownie.'], 500);
+        }
     }
 
     /**
