@@ -48,8 +48,9 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="{{ asset('js/helpers/bus.js') }}"></script>
-<script src="{{ asset('js/helpers/delete-pet.js') }}" defer></script>
+<script src="{{ asset('js/services/pet.service.js') }}" defer></script>
 <script src="{{ asset('js/pets-list.js') }}" defer></script>
+<script src="{{ asset('js/components/pet-form.js') }}" defer></script>
 @stack('scripts')
 
 </body>

@@ -35,7 +35,11 @@ class PetService
 
     public function updatePet(array $data)
     {
-        return $this->petRepository->updatePet($data);
+        $response = $this->petRepository->updatePet($data);
+        if (isset($response['error'])) {
+            throw new \Exception('Błąd podczas edycji pupila: ' . $response['error']);
+        }
+        return $response;
     }
 
     public function deletePet($id)

@@ -33,14 +33,4 @@ $(document).ready(function () {
         }
     });
     PetsList.init(pets);
-    $('#pets-list').on('click', '.btn-danger', function () {
-        const petId = $(this).data('id');
-        deletePet(petId);
-    });
-
-    // Obsługa przekierowania do szczegółów zwierzaka
-    $('#pets-list').on('click', '.btn-info', function () {
-        const petId = $(this).data('id');
-        window.location.href = `/pet/${petId}`;
-    });
 });

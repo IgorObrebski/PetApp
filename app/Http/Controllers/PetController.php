@@ -96,7 +96,12 @@ class PetController
      */
     public function update(Request $request): JsonResponse
     {
-        return response()->json($this->petService->updatePet($request->all()));
+        try{
+            $pet = $this->petService->updatePet($request->all());
+                 return response()->json($pet, 200);
+        }catch (\Exception $e){
+            return response()->json(['error' => 'Nie udało się edytować zwierzaka. Spróbuj ponownie.'], 500);
+        }
     }
 
     /**

@@ -34,14 +34,15 @@ window.PetsList = (function () {
                         </div>
                         <div class="tags d-flex flex-wrap gap-1">${getTags(pet.tags)}</div>
                         <div class="action-buttons">
-                            <button data-id=${pet.id} class="btn btn-info action-btn">🔍</button>
-                            <button class="btn btn-warning action-btn">✏️</button>
-                            <button data-id=${pet.id} class="btn btn-danger action-btn">🗑️</button>
+                            <button class="btn btn-info action-btn" onclick="dispatcher.viewPet(${pet.id})">🔍</button>
+                            <button class="btn btn-warning action-btn edit-btn">✏️</button>
+                            <button class="btn btn-danger action-btn" onclick="dispatcher.deletePet(${pet.id})">🗑️</button>
                         </div>
                     </div>
                 </div>
             `);
             gridContainer.append(petCard);
+            petCard.find('.edit-btn').on('click', () => dispatcher.editPet(pet));
         });
         petsList.append(gridContainer);
         updatePagination();
