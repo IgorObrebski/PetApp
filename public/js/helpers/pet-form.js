@@ -8,8 +8,13 @@ $(document).ready(function() {
                     <input type="text" class="form-control" id="petName" placeholder="Wpisz nazwę pupila" required>
                 </div>
                 <div class="mb-3">
+                    <label for="petCategory" class="form-label">Katergoria</label>
+                    <input type="text" class="form-control" id="petCategory" placeholder="Wpisz kategorie" required>
+                </div>
+                <div class="mb-3">
                     <label for="petStatus" class="form-label">Status</label>
                     <select class="form-select" id="petStatus" required>
+                        <option value="" disabled selected>🔍 Wybierz status zwierzaka</option>
                         <option value="available">Dostępny</option>
                         <option value="sold">Sprzedany</option>
                         <option value="pending">Oczekujący</option>
@@ -20,8 +25,11 @@ $(document).ready(function() {
         const actionText = 'Zapisz';
         const actionCallback = function () {
             const petName = $('#petName').val();
+            const petCategory = $('#petCategory').val();
             const petStatus = $('#petStatus').val();
             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+            console.log(petName, petStatus, petCategory)
             if (petName && petStatus) {
                 EventBus.trigger("loading:start");
 
@@ -31,6 +39,7 @@ $(document).ready(function() {
                     data: {
                         name: petName,
                         status: petStatus,
+                        category: {name: petCategory, id: 0},
                         _token: csrfToken
                     },
                     beforeSend: function() {
